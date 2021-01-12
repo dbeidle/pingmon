@@ -1,6 +1,7 @@
 # pingmon
 python ping monitor
 
+Requires Python 3.7+
 
 This file will ping hosts added to the list in pingmon.py and send an email notifying of any changes. 
 
