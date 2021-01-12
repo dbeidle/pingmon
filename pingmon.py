@@ -7,7 +7,8 @@ from email.header import Header
 
 
 # Hosts to check
-hosts = ["192.168.1.1", "192.168.1.2", "192.168.1.254", "192.168.1.3"]
+#hosts = ["192.168.1.1", "192.168.1.2", "192.168.1.254", "192.168.1.3"]
+hosts = ["192.168.4.25", "192.168.4.28"]
 # File name of output to retain statuses
 FILE_NAME = 'hosts_stats.json'
 # E-mail address to send notification to
@@ -37,9 +38,17 @@ def mail(body_txt, subject_txt):
     server.sendmail(from_, to, txt)
 
 def ping(host):
-    response = os.system('ping -c 1 {}'.format(host))
+    count = 5
+    ping = 0
+    response = []
+    # Send 5 single pings to device one at a time.
+    while ping < count:
+      response.append(os.system('ping -c 1 {}'.format(host)))
+      ping += 1
+    # Get date to add to file
     date = datetime.datetime.now().isoformat()
-    return  { "date": date, "host": host, "status": 'UP' if response == 0 else 'DOWN'}
+    # If response code 0 is in the response array mark it as UP else, mark it down.
+    return {"date": date, "host": host, "status": 'UP' if 0 in response else 'DOWN'}
 
 def createFile():
     # [{"date": "2020-04-29T20:20:50.816327", "host": "192.168.1.1", "status": "DOWN"}]
@@ -109,7 +118,7 @@ if __name__ == "__main__":
                         subject_txt = "Host %s is %s" % (entry["host"], entry["status"])
 
                         # Send mail
-                        mail(body_txt, subject_txt)
+                        #mail(body_txt, subject_txt)
 
                         # Add status changed entry to new list
                         results_list.append(entry)
