@@ -7,8 +7,8 @@ from email.header import Header
 
 
 # Hosts to check
-#hosts = ["192.168.1.1", "192.168.1.2", "192.168.1.254", "192.168.1.3"]
-hosts = ["192.168.4.25", "192.168.4.28"]
+hosts = ["192.168.1.1", "192.168.1.2", "192.168.1.254", "192.168.1.3"]
+
 # File name of output to retain statuses
 FILE_NAME = 'hosts_stats.json'
 # E-mail address to send notification to
